@@ -1,20 +1,14 @@
 class Solution:
     def addTwoNumbers(self, l1, l2):
-        dummy = ListNode(0)
-        temp = dummy
         carry = 0
+        head = cur = ListNode(0)
 
         while l1 or l2 or carry:
-            if l1:
-                carry += l1.val
-                l1 = l1.next
-
-            if l2:
-                carry += l2.val
-                l2 = l2.next
-
-            temp.next = ListNode(carry % 10)
+            carry += (l1.val if l1 else 0) + (l2.val if l2 else 0)
+            cur.next = ListNode(carry % 10)
+            cur = cur.next
             carry //= 10
-            temp = temp.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
 
-        return dummy.next
+        return head.next
